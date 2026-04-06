@@ -1,4 +1,4 @@
-# mck – Minimal Kernel Kit
+# mck – Minimal Core Kit
 
 mck is a modular, self-contained OS development kit designed to be copied directly into new operating system projects.  
 It provides a minimal kernel structure, a reusable C89 core, utilities, architecture-specific code, and a clean directory layout suitable for both small experiments and long-term OS projects.
