@@ -303,13 +303,15 @@ Requires a bootloader that already enabled long mode.
 
 # 16. C++ Layer
 
+# 16.1 C++ Core
+
 ## Files
 - cpp/core/core.hpp  
 - cpp/utils/vector.hpp  
 - cpp/utils/string.hpp  
 
 ## Purpose
-Minimal C++ wrappers without exceptions or RTTI.
+Minimal C++ core helpers (no exceptions, no RTTI, no STL).
 
 ---
 
@@ -341,11 +343,11 @@ void kmain(void) {
 
 # 18. Linker Script
 
-## File
-- ld/kernel.ld  
+## Files
+- ld/kernel.ld
 
 ## Purpose
-Defines kernel memory layout and entry point.
+Defines memory layout, kernel entry, sections, and alignment rules.
 
 ---
 
@@ -353,6 +355,14 @@ Defines kernel memory layout and entry point.
 
 mck does not impose a build system.  
 You may use Make, CMake, custom scripts, or any other method.
+
+# 19.1 Tools
+
+## Files
+- tools/*
+
+## Purpose
+Build scripts, helper utilities, and automation.
 
 ---
 
@@ -369,3 +379,80 @@ You can add:
 - device drivers  
 
 mck is designed to be extended freely.
+
+---
+
+# 21. Rust Integration
+
+## Files
+- rust/Cargo.toml
+- rust/.cargo/config.toml
+- rust/src/lib.rs
+
+## Purpose
+Provides optional Rust modules compiled as a static library (`libmck_rust.a`) usable from C.
+
+## Usage (C side)
+extern unsigned int mck_rust_add(unsigned int a, unsigned int b);
+
+unsigned int v = mck_rust_add(2, 3);
+
+# 22. Installer
+
+---
+
+## Files
+- installer/*
+
+## Purpose
+Packaging, distribution, or installation helpers for mck.
+
+# 23. Documentation System
+
+---
+
+## Files
+- docs/*
+
+## Purpose
+Static documentation pages for mck (HTML, CSS, wiki-style layout).
+
+---
+
+# 24. Build Directory
+
+## Files
+- build/*
+
+## Purpose
+Intermediate build artifacts, object files, and generated binaries.
+
+---
+
+# 25. Root Source Directory
+
+## Files
+- src/*
+
+## Purpose
+Shared C sources not tied to kernel or utilities.
+
+---
+
+# 26. Repository Rules
+
+## Files
+- .gitattributes
+
+## Purpose
+Forces LF line endings across all platforms for OSDev compatibility.
+
+---
+
+# 27. Git Ignore Rules
+
+## Files
+- .gitignore
+
+## Purpose
+Excludes build artifacts, Rust target/, temporary files, and editor caches.
