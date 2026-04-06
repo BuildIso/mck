@@ -26,6 +26,8 @@ Source: "..\kernel\*";  DestDir: "{app}\kernel";  Flags: recursesubdirs createal
 Source: "..\ld\*";      DestDir: "{app}\ld";      Flags: recursesubdirs createallsubdirs
 Source: "..\tools\*";   DestDir: "{app}\tools";   Flags: recursesubdirs createallsubdirs
 Source: "..\docs\*";    DestDir: "{app}\docs";    Flags: recursesubdirs createallsubdirs
+Source: "..\rust\*";    DestDir: "{app}\rust";    Flags: recursesubdirs createallsubdirs
+Source: "..\build\*";    DestDir: "{app}\build";    Flags: recursesubdirs createallsubdirs
 Source: "..\*"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
