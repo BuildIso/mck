@@ -456,3 +456,154 @@ Forces LF line endings across all platforms for OSDev compatibility.
 
 ## Purpose
 Excludes build artifacts, Rust target/, temporary files, and editor caches.
+
+---
+
+## 28. Device System
+
+### Files
+- `include/device/device.h`  
+- `src/device/device.c`
+
+### Purpose  
+Minimal device registry for storing and retrieving devices by name.
+
+### Usage
+```c
+mck_device devices[16];
+mck_device_registry reg;
+
+mck_device_registry_init(&reg, devices, 16);
+mck_device_register(&reg, "uart0", uart_ptr);
+
+mck_device *dev = mck_device_find(&reg, "uart0");
+```
+
+---
+
+## 29. TTY Layer
+
+### Files
+- `include/tty/tty.h`  
+- `src/tty/tty.c`
+
+### Purpose  
+Simple TTY abstraction on top of console or serial output.
+
+### Usage
+```c
+mck_tty_set_write(my_write);
+mck_tty_set_putc(my_putc);
+
+mck_tty_write("Hello");
+mck_tty_putc('A');
+```
+
+---
+
+## 30. VFS Layer
+
+### Files
+- `include/vfs/vfs.h`  
+- `src/vfs/vfs.c`
+
+### Purpose  
+Minimal virtual filesystem interface.  
+Provides root node and lookup callback.
+
+### Usage
+```c
+mck_vfs_node root = { "root", 0, 0 };
+mck_vfs_set_root(&root);
+mck_vfs_set_lookup(my_lookup);
+
+mck_vfs_node *n = mck_vfs_lookup("/path");
+```
+
+---
+
+## 31. Crypto (CRC32)
+
+### Files
+- `include/crypto/crc32.h`  
+- `src/crypto/crc32.c`
+
+### Purpose  
+Minimal CRC32 implementation (polynomial 0xEDB88320).
+
+### Usage
+```c
+unsigned long crc = mck_crc32(data, size);
+```
+
+---
+
+## 32. Extra Math (Random)
+
+### Files
+- `include/math/extra/random.h`  
+- `src/math/extra/random.c`
+
+### Purpose  
+Simple linear congruential generator (LCG).
+
+### Usage
+```c
+mck_rand_seed(1234);
+unsigned long v = mck_rand_next();
+```
+
+---
+
+## 33. Dynamic Buffer
+
+### Files
+- `include/utils/buffer.h`  
+- `src/utils/buffer.c`
+
+### Purpose  
+Minimal growable byte buffer.
+
+### Usage
+```c
+unsigned char storage[64];
+mck_buffer buf;
+
+mck_buffer_init(&buf, storage, 64);
+mck_buffer_push(&buf, 0x42);
+```
+
+---
+
+## 34. Format Utilities
+
+### Files
+- `include/utils/format.h`  
+- `src/utils/format.c`
+
+### Purpose  
+Minimal integer formatting (decimal and hex).
+
+### Usage
+```c
+char tmp[32];
+mck_format_u32(tmp, 12345);
+mck_format_hex_u32(tmp, 0xABCD);
+```
+
+---
+
+## 35. Architecture Common Helpers
+
+### Files
+- `kernel/arch/common/cpu.h`  
+- `kernel/arch/common/cpu.c`
+
+### Purpose  
+Architecture‑independent CPU helpers.
+
+### Usage
+```c
+mck_cpu_pause();
+mck_cpu_halt();
+```
