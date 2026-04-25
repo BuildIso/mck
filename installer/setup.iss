@@ -4,7 +4,7 @@
 
 [Setup]
 AppName=mck
-AppVersion=2026.1
+AppVersion=2026.2
 AppPublisher=BuildIso
 DefaultDirName={commonpf}\mck
 DefaultGroupName=mck
