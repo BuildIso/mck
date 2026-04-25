@@ -607,3 +607,200 @@ Architecture‑independent CPU helpers.
 mck_cpu_pause();
 mck_cpu_halt();
 ```
+
+---
+
+# 36. Heap Allocator (Standalone)
+
+## Files
+- `include/mm/heap.h`  
+- `src/mm/heap.c`
+
+## Purpose  
+Minimal bump‑pointer heap allocator with alignment support.
+
+## Usage
+```c
+mck_heap h;
+mck_heap_init(&h, buffer, size);
+void* p = mck_heap_alloc(&h, 128, 8);
+mck_heap_reset(&h);
+```
+
+---
+
+# 37. VGA Console Backend
+
+## Files
+- `include/console/vga.h`  
+- `src/console/vga.c`
+
+## Purpose  
+Text‑mode VGA backend (80×25 or custom), pluggable into the console layer.
+
+## Usage
+```c
+mck_console_vga_init((mck_u16*)0xB8000, 80, 25);
+mck_console_vga_set_color(15, 1);
+mck_console_write("Hello VGA");
+```
+
+---
+
+# 38. UART 16550 Serial Driver
+
+## Files
+- `include/drivers/serial/uart16550.h`  
+- `src/drivers/serial/uart16550.c`
+
+## Purpose  
+Minimal UART 16550 driver for serial output (COM1/COM2).
+
+## Usage
+```c
+mck_uart16550 u;
+mck_uart16550_init(&u, 0x3F8);
+mck_uart16550_write(&u, "Hello serial\n");
+```
+
+---
+
+# 39. RAMFS (Static In‑Memory Filesystem)
+
+## Files
+- `include/storage/ramfs.h`  
+- `src/storage/ramfs.c`
+
+## Purpose  
+Simple static read‑only RAM filesystem.
+
+## Usage
+```c
+ramfs_file files[] = {
+    { "hello.txt", data, size }
+};
+
+ramfs_init(files, 1);
+const ramfs_file* f = ramfs_get("hello.txt");
+```
+
+---
+
+# 40. VRAMFS (Video RAM Filesystem)
+
+## Files
+- `include/storage/vramfs/m_vramfs.h`  
+- `include/storage/vramfs/q_vramfs.h`  
+- `src/storage/vramfs/m_vramfs.c`  
+- `src/storage/vramfs/q_vramfs.c`
+
+## Purpose  
+Writable filesystem stored directly in **video memory (VRAM)**.  
+Supports creation, deletion, writing, truncation, lookup, and quantity metrics.
+
+## Usage
+```c
+vramfs fs;
+vramfs_file table[16];
+unsigned char* vram = (unsigned char*)0xA0000;
+
+vramfs_init(&fs, vram, 65536, table, 16);
+vramfs_create(&fs, "sprite.raw", sprite_data, sprite_size);
+
+const vramfs_file* f = vramfs_find(&fs, "sprite.raw");
+unsigned long free = vramfs_free(&fs);
+```
+
+---
+
+# 41. Audio (PC Speaker Beep)
+
+## Files
+- `include/audio/beep.h`  
+- `src/audio/beep.c`
+
+## Purpose  
+Minimal PC speaker control (frequency beep).
+
+## Usage
+```c
+beep_play(440);
+beep_stop();
+```
+
+---
+
+# 42. Graphics System (Framebuffer)
+
+## Files
+- `include/graphics/graphics.h`  
+- `src/graphics/graphics.c`
+
+## Purpose  
+Basic framebuffer drawing: pixel write and screen clear.
+
+## Usage
+```c
+gfx_surface s = { fb, width, height, pitch };
+gfx_set_surface(&s);
+gfx_putpixel(10, 10, 0xFF0000);
+gfx_clear(0x000000);
+```
+
+---
+
+# 43. GUI Layer (Rectangles & Blitting)
+
+## Files
+- `include/gui/gui.h`  
+- `src/gui/gui.c`
+
+## Purpose  
+Minimal GUI primitives: rectangle fill and bitmap blit.
+
+## Usage
+```c
+gui_surface s = { fb, width, height, pitch };
+gui_set_surface(&s);
+
+gui_fill_rect(0, 0, 100, 50, 0x00FF00);
+gui_blit(10, 10, image_data, w, h);
+```
+
+---
+
+# 44. Networking System
+
+## Files
+- `include/net/net.h`  
+- `src/net/net.c`
+
+## Purpose  
+Packet queue + RX handler + polling loop.
+
+## Usage
+```c
+net_init();
+net_set_rx_handler(my_handler);
+net_receive(data, size);
+net_poll();
+```
+
+---
+
+# 45. Input System
+
+## Files
+- `include/input/input.h`  
+- `src/input/input.c`
+
+## Purpose  
+Generic input event queue with user-defined handler.
+
+## Usage
+```c
+input_init();
+input_set_handler(my_handler);
+input_push(code, value);
+input_poll();
+```

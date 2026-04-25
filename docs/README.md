@@ -44,20 +44,30 @@ mck/
 │   ├─ drivers/
 │   ├─ event/
 │   ├─ fs/
+|   ├─ graphics/
+|   ├─ gui/
 │   ├─ io/
 │   ├─ mm/
 │   ├─ sys/
 │   ├─ tty/
+|   ├─ storage/
+|   ├─ audio/
+|   ├─ input/
 │   ├─ vfs/
+|   ├─ net/
 │   ├─ table/
 │   └─ time/
 ├─ src/
 │   ├─ core/
 │   ├─ drivers/
 │   ├─ modules/
+|   ├─ gui/
+|   ├─ input/
 │   ├─ utils/
 │   ├─ math/
 │   ├─ log/
+|   ├─ net/
+|   ├─ storage/
 │   ├─ config/
 │   ├─ debug/
 │   ├─ buffer/
@@ -66,12 +76,14 @@ mck/
 |   ├─ vfs/
 |   ├─ sys/
 |   ├─ mm/
+|   ├─ audio/
 |   ├─ tty/
 |   ├─ console/
 |   ├─ crypto/
 |   ├─ device/
 |   ├─ event/
 |   ├─ fs/
+|   ├─ graphics/
 |   ├─ io/
 |   ├─ time/
 │   └─ main.c
@@ -186,7 +198,7 @@ To use mck in your own OS project:
 mck does not impose a build system or runtime.  
 It is intended to be adapted freely.
 
-## License
+## License (https://github.com/BuildIso/mck/blob/main/LICENSE)
 
 MIT License
 
